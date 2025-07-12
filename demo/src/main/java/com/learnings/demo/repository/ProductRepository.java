@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository; // Imports JpaRepo
 
 import com.learnings.demo.model.Product; // Imports the Product entity.
 
-public interface ProductRepository extends JpaRepository<Product, Long> { // Declares a repository interface for Product, with Long as the ID type.
-}
+// public interface ProductRepository extends JpaRepository<Product, Long> { // Declares a repository interface for Product, with Long as the ID type.
+// }
 
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    boolean existsByName(String name); // Checks if a product with the given name exists
+}

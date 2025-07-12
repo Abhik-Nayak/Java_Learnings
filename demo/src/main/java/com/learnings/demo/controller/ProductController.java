@@ -3,6 +3,7 @@ package com.learnings.demo.controller; // Declares the package for this controll
 
 import java.util.List; // Imports List for returning multiple products.
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping; // Annotation for HTTP DELETE requests.
 import org.springframework.web.bind.annotation.GetMapping;    // Annotation for HTTP GET requests.
 import org.springframework.web.bind.annotation.PathVariable; // Annotation to extract variables from URL.
@@ -26,9 +27,19 @@ public class ProductController { // Declares the ProductController class.
     }
 
     // CREATE
-    @PostMapping // Handles HTTP POST requests to /api/products.
-    public Product createProduct(@RequestBody Product product) { // Accepts a Product from the request body.
-        return repository.save(product); // Saves and returns the new product.
+    // @PostMapping // Handles HTTP POST requests to /api/products.
+    // public Product createProduct(@RequestBody Product product) { // Accepts a Product from the request body.
+    //     return repository.save(product); // Saves and returns the new product.
+    // }
+    @PostMapping
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
+        if (repository.existsByName(product.getName())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Product already exists");
+        }
+        Product savedProduct = repository.save(product);
+        return ResponseEntity.ok(savedProduct);
     }
 
     // READ ALL
@@ -41,14 +52,14 @@ public class ProductController { // Declares the ProductController class.
     @GetMapping("/{id}") // Handles HTTP GET requests to /api/products/{id}.
     public Product getProduct(@PathVariable Long id) { // Extracts 'id' from the URL.
         return repository.findById(id) // Looks for the product by id.
-            .orElseThrow(() -> new RuntimeException("Product not found")); // Throws error if not found.
+                .orElseThrow(() -> new RuntimeException("Product not found")); // Throws error if not found.
     }
 
     // UPDATE
     @PutMapping("/{id}") // Handles HTTP PUT requests to /api/products/{id}.
     public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) { // Accepts id and updated product data.
         Product product = repository.findById(id) // Finds the existing product.
-            .orElseThrow(() -> new RuntimeException("Product not found")); // Throws error if not found.
+                .orElseThrow(() -> new RuntimeException("Product not found")); // Throws error if not found.
         product.setName(updatedProduct.getName()); // Updates the name.
         product.setPrice(updatedProduct.getPrice()); // Updates the price.
         return repository.save(product); // Saves and returns the updated product.
