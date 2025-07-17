@@ -1,7 +1,7 @@
 package com.abhi.ecommerce.model;
 
-import jakarta.persistence.*; // JPA annotations for ORM mapping
-import lombok.*; // Lombok annotations to reduce boilerplate code
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "products")
@@ -10,8 +10,8 @@ import lombok.*; // Lombok annotations to reduce boilerplate code
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
