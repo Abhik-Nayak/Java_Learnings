@@ -11,10 +11,3 @@ public class EcommerceBackendApplication {
 	}
 
 }
-
-
-// This is the entry point of your Spring Boot application. When you run this class, Spring Boot:
-// Starts the embedded server (Tomcat),
-// Scans components (@Component, @Service, @Repository),
-// Configures your application automatically.
-// Run the app and you should see Started EcommerceBackendApplication in the console.
