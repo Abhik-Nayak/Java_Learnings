@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.abhi.ecommerce.dto.UserRequestDTO;
-import com.abhi.ecommerce.dto.UserResponseDTO;
-import com.abhi.ecommerce.service.UserService;
+import com.abhi.ecommerce.dto.ProductRequestDTO;
+import com.abhi.ecommerce.dto.ProductResponseDTO;
+import com.abhi.ecommerce.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/products")
 @RequiredArgsConstructor
-public class UserController {
+public class ProductController {
 
-    private final UserService userService;
+    private final ProductService productService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserResponseDTO> signup(@RequestBody UserRequestDTO userRequestDTO) {
-        UserResponseDTO responseDTO = userService.registerUser(userRequestDTO);
+    @PostMapping("/add")
+    public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody ProductRequestDTO requestDTO) {
+        ProductResponseDTO responseDTO = productService.addProduct(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 }
