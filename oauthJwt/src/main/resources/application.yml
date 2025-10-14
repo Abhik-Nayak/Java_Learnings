@@ -8,7 +8,7 @@ spring:
       name: admin
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/fitnessapp_user_service
+    url: jdbc:postgresql://localhost:5432/user-auth-service
     username: postgres
     password: postgres
 
