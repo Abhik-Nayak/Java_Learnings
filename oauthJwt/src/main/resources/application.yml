@@ -25,5 +25,5 @@ server:
 
 app:
   jwt:
-    secret: change-this-secret-to-a-long-random-value
+    secret: "xE7hKn6GVU8y1lXRA5nYqHfw8EhH7kB14DnZL1mxMfKqj3U3EYnYzF3ZjqMEJgh2"
     expiration-ms: 3600000

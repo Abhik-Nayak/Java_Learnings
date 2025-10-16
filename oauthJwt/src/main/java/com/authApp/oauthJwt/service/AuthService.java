@@ -50,7 +50,7 @@ public class AuthService {
                 .fullName(request.getFullName())
                 .email(request.getEmail().toLowerCase())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(Set.of(Role.ROLE_USER))
+                .roles(Set.of(Role.USER))
                 .enabled(true)
                 .createdAt(Instant.now())
                 .build();

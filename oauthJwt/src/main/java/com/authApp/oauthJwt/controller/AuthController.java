@@ -35,6 +35,6 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> signin(@Valid @RequestBody SigninRequest request){
         String token = authService.authenticateUser(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok(JwtResponse.builder().accessToken(token).build());
+        return ResponseEntity.ok(JwtResponse.builder().accessToken(token).tokenType("Bearer").build());
     }
 }
