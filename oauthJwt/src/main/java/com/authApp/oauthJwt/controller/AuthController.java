@@ -1,22 +1,24 @@
 package com.authApp.oauthJwt.controller;
 
-
-import com.authApp.oauthJwt.dto.JwtResponse;
-import com.authApp.oauthJwt.dto.SigninRequest;
 import com.authApp.oauthJwt.dto.SignupRequest;
 import com.authApp.oauthJwt.dto.UserResponse;
 import com.authApp.oauthJwt.model.User;
 import com.authApp.oauthJwt.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
-    public AuthController(AuthService authService){ this.authService = authService; }
+    public AuthController(AuthService authService){
+        this.authService = authService;
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<UserResponse> signup(@Valid @RequestBody SignupRequest signupRequest){
@@ -30,11 +32,5 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok(resp);
-    }
-
-    @PostMapping("/signin")
-    public ResponseEntity<JwtResponse> signin(@Valid @RequestBody SigninRequest request){
-        String token = authService.authenticateUser(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok(JwtResponse.builder().accessToken(token).tokenType("Bearer").build());
     }
 }
