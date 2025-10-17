@@ -4,20 +4,20 @@ import com.authApp.oauthJwt.dto.SignupRequest;
 import com.authApp.oauthJwt.dto.UserResponse;
 import com.authApp.oauthJwt.model.User;
 import com.authApp.oauthJwt.service.AuthService;
+import com.authApp.oauthJwt.service.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
-    public AuthController(AuthService authService){
+    private final JwtService jwtService;
+    public AuthController(AuthService authService, JwtService jwtService){
         this.authService = authService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/signup")
@@ -32,5 +32,17 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok(resp);
+    }
+
+    @PostMapping("/token")
+    public ResponseEntity<String> createToken(@RequestParam String username) {
+        String token = jwtService.generateToken(username);
+        return ResponseEntity.ok(token);
+    }
+
+    @GetMapping("/validate")
+    public ResponseEntity<Boolean> validateToken(@RequestParam String token) {
+        boolean isValid = jwtService.validateToken(token);
+        return ResponseEntity.ok(isValid);
     }
 }
