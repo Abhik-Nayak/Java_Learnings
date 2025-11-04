@@ -1,3 +1,4 @@
+//This service is a core components of Spring security , responsible for loading user details from your database during authentication.
 package com.authApp.oauthJwt.service;
 
 import com.authApp.oauthJwt.model.User;
@@ -17,6 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public CustomUserDetailsService(UserRepository userRepository){
         this.userRepository = userRepository;
+        log.info("CustomUserDetailsService initialized successfully.");
     }
     //Constructor injection - Spring injects your UserRepository bean automatically
     //Using constructor injection is cleaner, safe and test-friendly.
